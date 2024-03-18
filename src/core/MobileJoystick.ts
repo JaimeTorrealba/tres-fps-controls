@@ -1,6 +1,6 @@
-import { inject, defineComponent, ref, reactive } from 'vue'
+import { inject, defineComponent, reactive } from 'vue'
 import { useEventListener } from '@vueuse/core'
-import { onMove, endTouch, startTouch, getMousePosition } from './composables/utilsMobile'
+import { startTouch } from '../composables/utilsMobile'
 
 // todo define props
 // todo try others styles

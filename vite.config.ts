@@ -11,7 +11,7 @@ import { templateCompilerOptions } from '@tresjs/core'
 
 import pkg from './package.json'
 
-console.log(`${lightGreen('▲')} ${gray('■')} ${yellow('⚔')} ${bold('Tres/cientos')} v${pkg.version}`)
+console.log(`${lightGreen('▲')} ${gray('■')} ${yellow('⚔')} ${bold('FPS-Controls')} v${pkg.version}`)
 
 // https://vitejs.dev/config/
 export default defineConfig({

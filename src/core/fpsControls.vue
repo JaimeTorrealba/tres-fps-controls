@@ -12,6 +12,12 @@ import PointerLockControls from './PointerLockControls.vue'
 
 // JUMP will be removed when rapier is ready
 
+// interface headBobbing {
+//   active: boolean
+//   speed: number
+//   amplitude: number
+// } 
+
 const props = defineProps({
   ...PointerLockControls.props,
   controlsKeys: {
@@ -22,23 +28,23 @@ const props = defineProps({
       { name: 'leftward', key: 'a' },
       { name: 'rightward', key: 'd' },
       // Optional actions key map
-      { name: 'jump', key: 'space' }, // has gravity
-      { name: 'run', key: 'Shift' }, // has speed
-      { name: 'creep', key: 'ctrl' }, // has speed
-      // click actions
+      { name: 'jump', key: 'space' },
+      { name: 'run', key: 'Shift' },
+      { name: 'creep', key: 'ctrl' },
+      // Mouse actions
       { name: 'leftClick', action: () => { } },
       { name: 'rightClick', action: () => { } },
       { name: 'middleClick', action: () => { } },
       { name: 'wheelActionUp', action: () => { } },
       { name: 'wheelActionDown', action: () => { } },
-      // key actions
+      // Key actions
       {
         name: 'actions', actions:
                     [
-                      { name: 'action', key: 'e', action: () => console.log('Press e') },
-                      { name: 'action', key: 'q', action: () => console.log('Press q') },
-                      { name: 'action', key: 'r', action: () => console.log('Press r') },
-                      { name: 'action', key: 'f', action: () => console.log('Press f') },
+                      { name: 'action', key: 'e', action: () => {} },
+                      { name: 'action', key: 'q', action: () => {} },
+                      { name: 'action', key: 'r', action: () => {} },
+                      { name: 'action', key: 'f', action: () => {} },
                     ],
       },
     ],
@@ -101,7 +107,8 @@ const onChangePointerLock = () => onChangeModel()
 
 const onChangeModel = () => {
   wrapperRef.value.rotation.copy(activeCamera.value.rotation)
-  wrapperRef.value.position.copy(activeCamera.value.position).add(activeCamera.value.getWorldDirection(rotationModelGroup).multiplyScalar(2.5))
+  wrapperRef.value.position.copy(activeCamera.value.position)
+    .add(activeCamera.value.getWorldDirection(rotationModelGroup).multiplyScalar(2.5))
   emit('change', PointerLockControlsRef)
 }
 

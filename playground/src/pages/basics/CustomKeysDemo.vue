@@ -4,11 +4,21 @@ import { TresCanvas } from '@tresjs/core'
 import { Sky, Stats } from '@tresjs/cientos'
 import { fpsControls } from 'fpsControls'
 
-const shooter = shallowRef(false)
-
-watch(shooter, (value) => {
-  console.log('jaime ~ watch ~ value:', value)
-})
+const keyboardMap = [
+  { name: 'jump', key: 'Space' },
+  { name: 'run', key: 'q', speed: 0.5 },
+  { name: 'creep', key: 'e' },
+  { name: 'leftClick', action: () => animationSword() },
+  {
+    name: 'actions',
+    actions: [
+      { name: 'action2', key: 'f', action: () => console.log('F press') },
+      { name: 'action4', key: 'r', action: () => console.log('R press') },
+    ],
+  },
+  { name: 'wheelActionUp', action: () => console.log('up') },
+  { name: 'wheelActionDown', action: () => console.log('down') },
+]
 </script>
 
 <template>
@@ -22,7 +32,7 @@ watch(shooter, (value) => {
     />
     <Stats />
     <fpsControls
-      ref="shooter"
+      :controlsKeys="keyboardMap"
     />
     <TresMesh>
       <TresBoxGeometry :args="[1, 1, 1]" />
