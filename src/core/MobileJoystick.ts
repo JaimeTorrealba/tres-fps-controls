@@ -9,28 +9,39 @@ import { startTouch } from '../composables/utilsMobile'
 export const MobileJoystick = defineComponent({
   name: 'MobileJoystick',
   props: {
-    showPanel: {
+    containerStyles: {
+      type: String,
+      default: 'position:absolute; bottom:35px; width:160px; height:160px; background:rgba(126, 126, 126, 0.5); border:#fff solid medium; border-radius:50%; left:20%; transform:translateX(-50%);z-index:9999;',
+    },
+    joystickStyles: {
+      type: String,
+      default: 'position: absolute; left: 50px; top: 50px; width: 60px; height: 60px; border-radius: 50%; background: #fff;',
+    },
+    maxRadius: {
       type: Number,
-      default: 0,
+      default: 60,
     },
   },
 
   setup(props) {
     const moveMethods = inject('moveMethods')
+    
+    const body = document.body
+    body.style.cssText = 'overscroll-behavior-y: contain;'
 
     // joystick DOM element
-    const circle = document.createElement('div')
-    circle.style.cssText
-      = 'position:absolute; bottom:35px; width:80px; height:80px; background:rgba(126, 126, 126, 0.5); border:#fff solid medium; border-radius:50%; left:20%; transform:translateX(-50%);z-index:1000;'
+    const container = document.createElement('div')
+    container.style.cssText
+      = props.containerStyles
     const domElement = document.createElement('div')
     domElement.style.cssText
-      = 'position: absolute; left: 20px; top: 20px; width: 40px; height: 40px; border-radius: 50%; background: #fff;'
-    circle.appendChild(domElement)
-    document.body.appendChild(circle)
+      = props.joystickStyles
+    container.appendChild(domElement)
+    document.body.appendChild(container)
 
     // VARIABLES
     const offset = reactive({ x: 0, y: 0 })
-    const maxRadius = 40 // prop maxRadius
+    const maxRadius = props.maxRadius
     const origin = { left: domElement.offsetLeft, top: domElement.offsetTop }
 
     if (domElement !== undefined) {
@@ -39,11 +50,11 @@ export const MobileJoystick = defineComponent({
           startTouch(moveMethods, evt, offset, domElement, maxRadius, origin)
         })
       }
-      else {
-        useEventListener(domElement, 'mousedown', (evt) => {
-          startTouch(moveMethods, evt, offset, domElement, maxRadius, origin)
-        })
-      }
+      // else {
+      //   useEventListener(domElement, 'mousedown', (evt) => {
+      //     startTouch(moveMethods, evt, offset, domElement, maxRadius, origin)
+      //   })
+      // }
     }
   },
 })

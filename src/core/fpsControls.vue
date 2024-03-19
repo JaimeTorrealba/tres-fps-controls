@@ -8,7 +8,7 @@ import { useWalk } from '../composables/useWalk'
 import { useActions } from '../composables/useActions'
 import { useHeadBobbing } from '../composables/useHeadBobbing'
 import { STATES, getMovementKey, getActionsKey, isMobile } from '../composables/utils'
-import PointerLockControls from './PointerLockControls.vue'
+import PointerLockControls from '../controls/PointerLockControls.vue'
 
 // JUMP will be removed when rapier is ready
 
@@ -79,11 +79,17 @@ const wrapperRef = shallowRef()
 const isLocked = shallowRef()
 const initCameraPos = activeCamera?.value?.position?.y ?? 0
 const rotationModelGroup = new Vector3()
+
 const [forward, backward, leftward, rightward, run, creep, jump] = getMovementKey(controlsKeys)
 const [leftClick, rightClick, middleClick, wheelActionUp, wheelActionDown, actions] = getActionsKey(controlsKeys)
-
 const { getJump, isJumping } = useJump(jump, initCameraPos)
 const walkSystem = useWalk(moveSpeed.value, { forward, backward, leftward, rightward, run, creep })
+
+provide('moveMethods', walkSystem)
+
+const headBobbingMov = useHeadBobbing(headBobbing, initCameraPos)
+useActions({ actions, wheelActionUp, wheelActionDown, leftClick, rightClick, middleClick })
+
 watchEffect(() => {
   if (walkSystem.isRunning.value) state.value = STATES.running
   else if (walkSystem.isCreeping.value) state.value = STATES.creeping
@@ -93,11 +99,6 @@ watchEffect(() => {
 
   emit('state', { state: state.value, direction: walkSystem.direction })
 })
-
-const headBobbingMov = useHeadBobbing(headBobbing, initCameraPos)
-useActions({ actions, wheelActionUp, wheelActionDown, leftClick, rightClick, middleClick })
-
-provide('moveMethods', walkSystem)
 
 const onLock = (event) => {
   isLocked.value = event
@@ -133,7 +134,7 @@ defineExpose({
 const { onLoop } = useRenderLoop()
 
 onLoop(({ elapsed }) => {
-  if (isLocked.value || !isMobile()) {
+  if (isLocked.value || isMobile) {
     PointerLockControlsRef.value.value.moveForward(walkSystem.forwardMove.value)
     PointerLockControlsRef.value.value.moveRight(walkSystem.sidewardMove.value)
     activeCamera.value.position.y = getJump()
@@ -157,3 +158,4 @@ onLoop(({ elapsed }) => {
     <slot />
   </TresGroup>
 </template>
+../controls/PointerLockControls.vue

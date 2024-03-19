@@ -14,4 +14,9 @@ export const basicsRoutes = [
     name: 'Model Demo',
     component: () => import('../../pages/basics/ModelDemo.vue'),
   },
+  {
+    path: '/basics/mobile-demo',
+    name: 'Mobile Demo',
+    component: () => import('../../pages/basics/MobileDemo.vue'),
+  },
 ]

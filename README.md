@@ -3,7 +3,7 @@
 > First person shooter controls to easily create 3D experiences of shooters (or other first person experiences)
 
 - 💡 Works out of the box
-- ⚡️ Powered by [Tresjs](https://tresjs.org/)
+- ⚡️ Powered by [Tresjs](https://tresjs.org/) VueJs + ThreeJs
 - 🦾 Fully configurable
 
 ## Installation
@@ -43,7 +43,7 @@ import { fpsControls } from 'fpsControls'
 Just by that you're going to have a shooter controller. Move using WASD keys and using your mouse to point eyes.
 
 :::info
-All the examples can be found in: TODO.
+All the examples can be found in: [Examples](https://github.com/JaimeTorrealba/fps-controls/tree/main/playground/src/pages).
 :::
 :::info
 This package use [PointerLockControls](https://cientos.tresjs.org/guide/controls/pointer-lock-controls.html) from [cientos](https://cientos.tresjs.org/).
@@ -79,7 +79,7 @@ We can provide and `controlsKeys` prop to change, add or remove some of the basi
       // Key actions
 
       {
-        name: 'actions', actions:
+        name: 'actions', actions: // You can have as much events as you want 🥳
                     [
                       { name: 'action', key: 'e', action: () => {} },
                       { name: 'action', key: 'q', action: () => {} },
@@ -137,8 +137,8 @@ const keyboardMap = [
 
 | Prop            | Description                                                                               | Type              | Default     |
 | :-------------- | :---------------------------------------------------------------------------------------- | ----------------- | ----------- |
-| **moveSpeed**   | Accept an id element as string, if it is set, the new element will be used as the trigger | Number            | `0.1`       |
-| **headBobbing** | Accept an id element as string, if it is set, the new element will be used as the trigger | IHeadBobbing      |             |
+| **moveSpeed**   | Move speed                                                                                | Number            | `0.1`       |
+| **headBobbing** | headBobbing params (active, speed, amplitude)                                             | IHeadBobbing      |             |
 | **camera**      | The camera to control.                                                                    | Camera            | `undefined` |
 | **domElement**  | The dom element to listen to.                                                             | HTMLCanvasElement | `undefined` |
 | **selector**    | Accept an id element as string, if it is set, the new element will be used as the trigger | String            | `undefined` |
@@ -153,19 +153,106 @@ interface IHeadBobbing {
 
 ### Add Weapons (models)
 
-TODO
+Do you want to add a weapon? like a pistol, that is always follow your character, it couldn't be easier:
+
+Just add your desire model as a slot
+
+```
+...
+    <fpsControls>
+      <Suspense>
+        <GLTFModel
+          path="/PixelArt Medieval Sword.glb"
+          :scale="0.4"
+          :position="[-4.5, -3, -5]" // Don't forget set the z axis
+          :rotation="[0, 1, 0]"
+        />
+      </Suspense>
+    </fpsControls>
+...
+```
+
+This will make your model update their position each time you move.
+
+:::warning
+Normally you should set up the z axis, so the model will be in front of you camera.
+:::
 
 ### Expose Methods
 
-TODO
+Do you still need more configurations?
+
+We provide all the methods for you, so you can use it as you like
+
+```
+  root: PointerLockControlsRef,
+  models: wrapperRef,
+  moveMethods: {
+    forward: () => walkSystem.moveForward(),
+    backward: () => walkSystem.moveBackward(),
+    leftward: () => walkSystem.moveLeftward(),
+    rightward: () => walkSystem.moveRightward(),
+    run: () => walkSystem.applyRun(),
+    creep: () => walkSystem.applyCreep(),
+    stopCreep: () => walkSystem.stopCreep(),
+    stopRun: () => walkSystem.stopRun(),
+    stopSideward: () => walkSystem.stopSideward(),
+    stopForward: () => walkSystem.stopForward(),
+  }
+```
+
+For granular control each method comes with his `stop` method.
+
+You can access all this method using [Template ref](https://vuejs.org/guide/essentials/template-refs.html#template-refs), as you normally do with your TresJs components
 
 ### Events
 
-TODO (emits)
+We also provide some reactive events
+
+const emit = defineEmits(['state', 'isLock', 'change'])
+
+| Event      | Description                                                |
+| :--------- | :--------------------------------------------------------- |
+| **state**  | trigger when the state changes.                            |
+| **isLock** | trigger if the pointer is lock.                            |
+| **change** | trigger when the character makes a move (move the camera). |
+
+Posible states:
+
+```
+  idle: 'idle',
+  walking: 'walking',
+  running: 'running',
+  jumping: 'jumping',
+  creeping: 'creeping',
+```
 
 ## Mobile (in progress)
 
-TODO
+You can use the `MobileJoystick` that creates a joystick in your screen to easily move using your fingers in mobile devices. (currently only work on touch devices)
+
+```
+<script setup>
+import { fpsControls, MobileJoystick } from 'fpsControls'
+...
+</script>
+
+<template>
+...
+    <fpsControls>
+      <MobileJoystick /> // Important, this component need to go inside the `fpsControls`
+    </fpsControls>
+...
+</template>
+```
+
+### Props
+
+| Prop                | Description                      | Type   | Default                                                                                                                                                                                           |
+| :------------------ | :------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **containerStyles** | Styles of the joystick container | String | `position:absolute; bottom:35px; width:160px; height:160px; background:rgba(126, 126, 126, 0.5); border:#fff solid medium; border-radius:50%; left:20%; transform:translateX(-50%);z-index:9999;` |
+| **joystickStyles**  | Joystick styles                  | String | `position: absolute; left: 50px; top: 50px; width: 60px; height: 60px; border-radius: 50%; background: #fff;`                                                                                     |
+| **maxRadius**       | Max length of the joystick       | Number | `40`                                                                                                                                                                                              |
 
 ## Contributing
 
@@ -177,4 +264,4 @@ We are open to contributions, please read the [contributing guide](https://githu
 
 ## Sponsors
 
-<!-- Be the first to support this project [here](https://github.com/sponsors/tresjs) ☺️ -->
+If you like this package you can support my job [here](https://github.com/sponsors/JaimeTorrealba ☺️. A github star or just some word of appreciation are increíble regarded

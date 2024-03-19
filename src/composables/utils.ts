@@ -48,6 +48,4 @@ export const getActionsKey = (keys) => {
   return result
 }
 
-export const isMobile = () => navigator.userAgent.match(
-  /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/,
-)
+export const isMobile = 'ontouchstart' in window
