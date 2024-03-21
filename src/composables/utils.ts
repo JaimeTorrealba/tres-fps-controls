@@ -9,12 +9,12 @@ export const STATES = Object.freeze({
 const defaultMovementKeys = Object.freeze({
   forward: 'w',
   backward: 's',
-  leftward: 'a',
-  rightward: 'd',
+  left: 'a',
+  right: 'd',
 })
 
 export const getMovementKey = (keys) => {
-  const movementKeys = ['forward', 'backward', 'leftward', 'rightward']
+  const movementKeys = ['forward', 'backward', 'left', 'right']
   const result: (boolean | { name: string; key: string })[] = [] // Change the type of 'result' array
   movementKeys.map((key) => {
     const [filteredKey] = keys.value.filter(k => k.name === key)

@@ -25,8 +25,8 @@ const props = defineProps({
     default: () => [
       { name: 'forward', key: 'w' },
       { name: 'backward', key: 's' },
-      { name: 'leftward', key: 'a' },
-      { name: 'rightward', key: 'd' },
+      { name: 'left', key: 'a' },
+      { name: 'right', key: 'd' },
       // Optional actions key map
       { name: 'jump', key: 'space' },
       { name: 'run', key: 'Shift' },
@@ -80,10 +80,10 @@ const isLocked = shallowRef()
 const initCameraPos = activeCamera?.value?.position?.y ?? 0
 const rotationModelGroup = new Vector3()
 
-const [forward, backward, leftward, rightward, run, creep, jump] = getMovementKey(controlsKeys)
+const [forward, backward, left, right, run, creep, jump] = getMovementKey(controlsKeys)
 const [leftClick, rightClick, middleClick, wheelActionUp, wheelActionDown, actions] = getActionsKey(controlsKeys)
 const { getJump, isJumping } = useJump(jump, initCameraPos)
-const walkSystem = useWalk(moveSpeed.value, { forward, backward, leftward, rightward, run, creep })
+const walkSystem = useWalk(moveSpeed.value, { forward, backward, left, right, run, creep })
 
 provide('moveMethods', walkSystem)
 
@@ -119,8 +119,8 @@ defineExpose({
   moveMethods: {
     forward: () => walkSystem.moveForward(),
     backward: () => walkSystem.moveBackward(),
-    leftward: () => walkSystem.moveLeftward(),
-    rightward: () => walkSystem.moveRightward(),
+    left: () => walkSystem.moveLeft(),
+    right: () => walkSystem.moveRight(),
     run: () => walkSystem.applyRun(),
     creep: () => walkSystem.applyCreep(),
     stopCreep: () => walkSystem.stopCreep(),

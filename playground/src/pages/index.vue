@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { basicsRoutes } from '../router/routes'
+import { basicsRoutes, intermediateRoutes } from '../router/routes'
 
-const sections = [{ icon: '📦', title: 'Basics', routes: basicsRoutes }]
+const sections = [
+  { icon: '📦', title: 'Basics', routes: basicsRoutes }, 
+  { icon: '🔥', title: 'Intermediate', routes: intermediateRoutes },
+]
 </script>
 
 <template>
@@ -51,12 +54,14 @@ const sections = [{ icon: '📦', title: 'Basics', routes: basicsRoutes }]
             :key="route.name"
             class="link-wrapper"
           >
-            <router-link
-              class="no-underline text-zinc-700 visited:text-zinc-400 hover:text-cientos-blue"
-              :to="route.path"
-            >
-              <span>{{ route.name }} </span>
-            </router-link>
+            <Suspense>
+              <router-link
+                class="no-underline text-zinc-700 visited:text-zinc-400 hover:text-cientos-blue"
+                :to="route.path"
+              >
+                <span>{{ route.name }} </span>
+              </router-link>
+            </Suspense>
           </div>
         </div>
       </div>

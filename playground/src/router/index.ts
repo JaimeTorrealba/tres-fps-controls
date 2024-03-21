@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { basicsRoutes } from './routes'
+import { basicsRoutes, intermediateRoutes } from './routes'
 
 export const routes = [
   {
@@ -8,6 +8,7 @@ export const routes = [
     component: () => import('../pages/index.vue'),
   },
   ...basicsRoutes,
+  ...intermediateRoutes,
 ]
 
 export const router = createRouter({

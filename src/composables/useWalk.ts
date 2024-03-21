@@ -10,16 +10,16 @@ export const useWalk = (speed: number, keys) => {
   const direction = reactive({
     forward: false,
     backward: false,
-    rightward: false,
-    leftward: false,
+    right: false,
+    left: false,
   })
-  const { forward, backward, rightward, leftward, run, creep } = keys
+  const { forward, backward, right, left, run, creep } = keys
 
   const keysDetector = useMagicKeys()
   const forwardKey = keysDetector[forward.key]
   const backwardKey = keysDetector[backward.key]
-  const rightwardKey = keysDetector[rightward.key]
-  const leftwardKey = keysDetector[leftward.key]
+  const rightKey = keysDetector[right.key]
+  const leftKey = keysDetector[left.key]
   const runKey = keysDetector[`${run.key}+${forward.key}`]
   const creepKey = keysDetector[`${creep.key}+${forward.key}`]
 
@@ -54,19 +54,19 @@ export const useWalk = (speed: number, keys) => {
     direction.backward = false
   }
 
-  // rightward && leftward
-  const moveLeftward = () => {
+  // right && left
+  const moveLeft = () => {
     sidewardMove.value = -speed
-    direction.leftward = true
+    direction.left = true
   }
-  const moveRightward = () => {
+  const moveRight = () => {
     sidewardMove.value = speed
-    direction.rightward = true
+    direction.right = true
   }
   const stopSideward = () => {
     sidewardMove.value = 0
-    direction.leftward = false
-    direction.rightward = false
+    direction.left = false
+    direction.right = false
   }
 
   watchEffect(() => {
@@ -87,12 +87,12 @@ export const useWalk = (speed: number, keys) => {
     }
     else stopForward()
 
-    // rightward && leftward
-    if (rightwardKey.value) {
-      moveRightward()
+    // right && left
+    if (rightKey.value) {
+      moveRight()
     }
-    else if (leftwardKey.value) {
-      moveLeftward()
+    else if (leftKey.value) {
+      moveLeft()
     }
     else stopSideward()
   })
@@ -110,8 +110,8 @@ export const useWalk = (speed: number, keys) => {
     isCreeping,
     moveForward,
     moveBackward,
-    moveLeftward,
-    moveRightward,
+    moveLeft,
+    moveRight,
     applyCreep,
     applyRun,
     stopCreep,

@@ -14,10 +14,10 @@ export const onMove = (moveMethods, forward, sideward) => {
     moveMethods.moveBackward()
   }
   if (sideward > 0.3) {
-    moveMethods.moveRightward()
+    moveMethods.moveRight()
   }
   else if (sideward < -0.3) {
-    moveMethods.moveLeftward()
+    moveMethods.moveLeft()
   }
 }
 

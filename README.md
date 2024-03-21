@@ -1,9 +1,9 @@
 # FPS controls
 
-> First person shooter controls to easily create 3D experiences of shooters (or other first person experiences)
+> First person shooter controls to easily create 3D shooter experiences (or other first person experiences).
 
 - 💡 Works out of the box
-- ⚡️ Powered by [Tresjs](https://tresjs.org/) VueJs + ThreeJs
+- ⚡️ Powered by [Tresjs](https://tresjs.org/), VueJs + ThreeJs
 - 🦾 Fully configurable
 
 ## Installation
@@ -14,9 +14,9 @@ pnpm i fpsControls
 
 ## Demos
 
-<!-- - [Stackblitz Collection](https://stackblitz.com/@alvarosabu/collections/tresjs) -->
+All the examples can be found in: [Examples](https://github.com/JaimeTorrealba/fps-controls/tree/main/playground/src/pages).
 
-## How to use
+## How to use it
 
 To get started you can simply import the main component and use it.
 
@@ -40,18 +40,15 @@ import { fpsControls } from 'fpsControls'
 </template>
 ```
 
-Just by that you're going to have a shooter controller. Move using WASD keys and using your mouse to point eyes.
+That's it. Now you're going to have a shooter controller. The WASD keys allow you to move and the mouse pointer changes where you look.
 
 :::info
-All the examples can be found in: [Examples](https://github.com/JaimeTorrealba/fps-controls/tree/main/playground/src/pages).
-:::
-:::info
-This package use [PointerLockControls](https://cientos.tresjs.org/guide/controls/pointer-lock-controls.html) from [cientos](https://cientos.tresjs.org/).
+This package uses [PointerLockControls](https://cientos.tresjs.org/guide/controls/pointer-lock-controls.html) from [cientos](https://cientos.tresjs.org/).
 :::
 
 ### ControlsKey
 
-We can provide and `controlsKeys` prop to change, add or remove some of the basic functionalities
+We can provide a `controlsKeys` prop to change, add or remove some of the basic functionalities.
 
 ```
   controlsKeys: {
@@ -59,14 +56,14 @@ We can provide and `controlsKeys` prop to change, add or remove some of the basi
     default: () => [
       { name: 'forward', key: 'w' },
       { name: 'backward', key: 's' },
-      { name: 'leftward', key: 'a' },
-      { name: 'rightward', key: 'd' },
+      { name: 'left', key: 'a' },
+      { name: 'right', key: 'd' },
 
       // Optionals
 
       { name: 'jump', key: 'space' },
-      { name: 'run', key: 'Shift', speed: moveSpeed * 2 }, // run affect headbobbing, make it faster
-      { name: 'creep', key: 'ctrl', speed: moveSpeed * 0.25 }, // creep affect headbobbing, make it slower
+      { name: 'run', key: 'Shift', speed: moveSpeed * 2 }, // run affect speeds up the headbobbing
+      { name: 'creep', key: 'ctrl', speed: moveSpeed * 0.25 }, // creep affect slows down the headbobbing
 
       // Mouse actions
 
@@ -79,7 +76,7 @@ We can provide and `controlsKeys` prop to change, add or remove some of the basi
       // Key actions
 
       {
-        name: 'actions', actions: // You can have as much events as you want 🥳
+        name: 'actions', actions: // You can have as many events as you want 🥳
                     [
                       { name: 'action', key: 'e', action: () => {} },
                       { name: 'action', key: 'q', action: () => {} },
@@ -138,9 +135,9 @@ const keyboardMap = [
 | Prop            | Description                                                                               | Type              | Default     |
 | :-------------- | :---------------------------------------------------------------------------------------- | ----------------- | ----------- |
 | **moveSpeed**   | Move speed                                                                                | Number            | `0.1`       |
-| **headBobbing** | headBobbing params (active, speed, amplitude)                                             | IHeadBobbing      |             |
-| **camera**      | The camera to control.                                                                    | Camera            | `undefined` |
-| **domElement**  | The dom element to listen to.                                                             | HTMLCanvasElement | `undefined` |
+| **headBobbing** | headBobbing parameters (active, speed, amplitude)                                             | IHeadBobbing      |             |
+| **camera**      | The camera to control                                                                    | Camera            | `undefined` |
+| **domElement**  | The dom element to listen to                                                           | HTMLCanvasElement | `undefined` |
 | **selector**    | Accept an id element as string, if it is set, the new element will be used as the trigger | String            | `undefined` |
 
 ```
@@ -151,11 +148,11 @@ interface IHeadBobbing {
 }
 ```
 
-### Add Weapons (models)
+### Add weapons (models)
 
-Do you want to add a weapon? like a pistol, that is always follow your character, it couldn't be easier:
+Do you want to add a weapon? Like a pistol, that is always with your character? It couldn't be easier:
 
-Just add your desire model as a slot
+Just add your desired model as a slot (learn how to load models here). For example:
 
 ```
 ...
@@ -172,17 +169,17 @@ Just add your desire model as a slot
 ...
 ```
 
-This will make your model update their position each time you move.
+This will make your model update its position each time you move.
 
 :::warning
-Normally you should set up the z axis, so the model will be in front of you camera.
+Normally you would set up the z axis, so the model is in front of you camera.
 :::
 
-### Expose Methods
+### Expose methods
 
 Do you still need more configurations?
 
-We provide all the methods for you, so you can use it as you like
+We provide all the methods for you, exposed by the component, so you can use them as you like.
 
 ```
   root: PointerLockControlsRef,
@@ -190,8 +187,8 @@ We provide all the methods for you, so you can use it as you like
   moveMethods: {
     forward: () => walkSystem.moveForward(),
     backward: () => walkSystem.moveBackward(),
-    leftward: () => walkSystem.moveLeftward(),
-    rightward: () => walkSystem.moveRightward(),
+    left: () => walkSystem.moveLeft(),
+    right: () => walkSystem.moveRight(),
     run: () => walkSystem.applyRun(),
     creep: () => walkSystem.applyCreep(),
     stopCreep: () => walkSystem.stopCreep(),
@@ -201,21 +198,21 @@ We provide all the methods for you, so you can use it as you like
   }
 ```
 
-For granular control each method comes with his `stop` method.
+For granular control each method comes with its `stop` method.
 
-You can access all this method using [Template ref](https://vuejs.org/guide/essentials/template-refs.html#template-refs), as you normally do with your TresJs components
+You can access all these methods using [Template ref](https://vuejs.org/guide/essentials/template-refs.html#template-refs), as you normally would do with your TresJs components.
 
 ### Events
 
-We also provide some reactive events
+We also provide some reactive events.
 
 const emit = defineEmits(['state', 'isLock', 'change'])
 
 | Event      | Description                                                |
 | :--------- | :--------------------------------------------------------- |
 | **state**  | trigger when the state changes.                            |
-| **isLock** | trigger if the pointer is lock.                            |
-| **change** | trigger when the character makes a move (move the camera). |
+| **isLock** | trigger whether the pointer is locked.                            |
+| **change** | trigger when the character makes a move (moves the camera). |
 
 Posible states:
 
@@ -229,7 +226,7 @@ Posible states:
 
 ## Mobile (in progress)
 
-You can use the `MobileJoystick` that creates a joystick in your screen to easily move using your fingers in mobile devices. (currently only work on touch devices)
+You can use the `MobileJoystick` that creates a joystick on your screen to easily move using your fingers on mobile devices (currently this only works on touch devices).
 
 ```
 <script setup>
@@ -256,7 +253,7 @@ import { fpsControls, MobileJoystick } from 'fpsControls'
 
 ## Contributing
 
-We are open to contributions, please read the [contributing guide](https://github.com/Tresjs/tres/blob/main/CONTRIBUTING.md).
+I appreciate your interest in this project! If you have any feedback, suggestions, or resources related to the controller, please feel free to share.
 
 ## License
 
@@ -264,4 +261,4 @@ We are open to contributions, please read the [contributing guide](https://githu
 
 ## Sponsors
 
-If you like this package you can support my job [here](https://github.com/sponsors/JaimeTorrealba ☺️. A github star or just some word of appreciation are increíble regarded
+If you like this package you can support my work [here](https://github.com/sponsors/JaimeTorrealba ☺️. A github star or just some words of appreciation are incredible.

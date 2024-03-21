@@ -189,7 +189,7 @@ class PointerLockControls extends EventDispatcher {
   }
 
   lock() {
-    if (typeof this.domElement.requestPointerLock !== 'undefined' && !isMobile())
+    if (typeof this.domElement.requestPointerLock !== 'undefined' && !isMobile)
       this.domElement.requestPointerLock()
   }
 
