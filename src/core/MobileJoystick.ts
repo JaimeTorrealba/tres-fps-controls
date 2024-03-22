@@ -1,4 +1,4 @@
-import { inject, defineComponent, reactive } from 'vue'
+import { inject, defineComponent, reactive, onUnmounted, onDeactivated } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { startTouch } from '../composables/utilsMobile'
 
@@ -37,7 +37,7 @@ export const MobileJoystick = defineComponent({
     domElement.style.cssText
       = props.joystickStyles
     container.appendChild(domElement)
-    document.body.appendChild(container)
+    body.appendChild(container)
 
     // VARIABLES
     const offset = reactive({ x: 0, y: 0 })
@@ -56,5 +56,12 @@ export const MobileJoystick = defineComponent({
       //   })
       // }
     }
+
+    onUnmounted(() => {
+      body.removeChild(container)
+    })
+    onDeactivated(() => {
+      body.removeChild(container)
+    })
   },
 })
