@@ -1,5 +1,5 @@
 {
-  "name": "fps-controls",
+  "name": "tres-fps-controls",
   "type": "module",
   "version": "0.0.3",
   "packageManager": "pnpm@8.10.2",
@@ -19,15 +19,15 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/fpsControls.js"
+      "import": "./dist/tresfpscontrols.js"
     },
     "./core": {
       "types": "./dist/core/index.d.ts"
     },
     "./*": "./*"
   },
-  "main": "./dist/fpsControls.js",
-  "module": "./dist/fpsControls.js",
+  "main": "./dist/tresfpscontrols.js",
+  "module": "./dist/tresfpscontrols.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",

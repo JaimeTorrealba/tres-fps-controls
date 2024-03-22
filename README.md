@@ -3,7 +3,7 @@
 > First person shooter controls to easily create 3D shooter experiences (or other first person experiences).
 
 - 💡 Works out of the box
-- ⚡️ Powered by [Tresjs](https://tresjs.org/), VueJs + ThreeJs
+- ⚡️ Powered by [Tresjs](https://tresjs.org/), [VueJs](https://vuejs.org/) + [ThreeJs](https://threejs.org/)
 - 🦾 Fully configurable
 
 ## Installation
@@ -14,16 +14,18 @@ pnpm i fpsControls
 
 ## Demos
 
+![Alt text](/Fake_Doom_demo.gif "a title")
+
 All the examples can be found in: [Examples](https://github.com/JaimeTorrealba/fps-controls/tree/main/playground/src/pages).
 
-## How to use it
+# How to use it
 
 To get started you can simply import the main component and use it.
 
-```vue{15}
+```html
 <script setup>
-import { TresCanvas } from '@tresjs/core'
-import { fpsControls } from 'fpsControls'
+  import { TresCanvas } from "@tresjs/core";
+  import { fpsControls } from "fpsControls";
 </script>
 
 <template>
@@ -42,15 +44,14 @@ import { fpsControls } from 'fpsControls'
 
 That's it. Now you're going to have a shooter controller. The WASD keys allow you to move and the mouse pointer changes where you look.
 
-:::info
-This package uses [PointerLockControls](https://cientos.tresjs.org/guide/controls/pointer-lock-controls.html) from [cientos](https://cientos.tresjs.org/).
-:::
+> [!NOTE]
+> This package uses [PointerLockControls](https://cientos.tresjs.org/guide/controls/pointer-lock-controls.html) from [cientos](https://cientos.tresjs.org/).
 
-### ControlsKey
+## ControlsKey
 
 We can provide a `controlsKeys` prop to change, add or remove some of the basic functionalities.
 
-```
+```js
   controlsKeys: {
     type: Array,
     default: () => [
@@ -88,30 +89,31 @@ We can provide a `controlsKeys` prop to change, add or remove some of the basic 
   },
 ```
 
-Under the hood we use [useMagicKeys](https://vueuse.org/core/useMagicKeys/#usemagickeys). Check out [all the possible keycodes](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values).
+> [!TIP]
+> Under the hood we use [useMagicKeys](https://vueuse.org/core/useMagicKeys/#usemagickeys). Check out [all the possible keycodes](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values).
 
 As you can see we can provide different actions, including an array of actions using the keyboard.
 
-```
+```html
 <script setup>
-import { TresCanvas } from '@tresjs/core'
-import { fpsControls } from 'fpsControls'
+  import { TresCanvas } from "@tresjs/core";
+  import { fpsControls } from "fpsControls";
 
-const keyboardMap = [
-  { name: 'jump', key: 'Space' },
-  { name: 'run', key: 'q', speed: 0.5 },
-  { name: 'creep', key: 'e' },
-  { name: 'leftClick', action: () => animationSword() },
-  {
-    name: 'actions',
-    actions: [
-      { name: 'action2', key: 'f', action: () => console.log('F press') },
-      { name: 'action4', key: 'r', action: () => console.log('R press') },
-    ],
-  },
-  { name: 'wheelActionUp', action: () => console.log('up') },
-  { name: 'wheelActionDown', action: () => console.log('down') },
-]
+  const keyboardMap = [
+    { name: "jump", key: "Space" },
+    { name: "run", key: "q", speed: 0.5 },
+    { name: "creep", key: "e" },
+    { name: "leftClick", action: () => animationSword() },
+    {
+      name: "actions",
+      actions: [
+        { name: "action2", key: "f", action: () => console.log("F press") },
+        { name: "action4", key: "r", action: () => console.log("R press") },
+      ],
+    },
+    { name: "wheelActionUp", action: () => console.log("up") },
+    { name: "wheelActionDown", action: () => console.log("down") },
+  ];
 </script>
 
 <template>
@@ -123,9 +125,7 @@ const keyboardMap = [
       :near="0.1"
       :far="1000"
     />
-    <fpsControls
-      :controlsKeys="keyboardMap"
-    />
+    <fpsControls :controlsKeys="keyboardMap" />
   </TresCanvas>
 </template>
 ```
@@ -135,53 +135,49 @@ const keyboardMap = [
 | Prop            | Description                                                                               | Type              | Default     |
 | :-------------- | :---------------------------------------------------------------------------------------- | ----------------- | ----------- |
 | **moveSpeed**   | Move speed                                                                                | Number            | `0.1`       |
-| **headBobbing** | headBobbing parameters (active, speed, amplitude)                                             | IHeadBobbing      |             |
-| **camera**      | The camera to control                                                                    | Camera            | `undefined` |
-| **domElement**  | The dom element to listen to                                                           | HTMLCanvasElement | `undefined` |
+| **headBobbing** | headBobbing parameters (active, speed, amplitude)                                         | IHeadBobbing      |             |
+| **camera**      | The camera to control                                                                     | Camera            | `undefined` |
+| **domElement**  | The dom element to listen to                                                              | HTMLCanvasElement | `undefined` |
 | **selector**    | Accept an id element as string, if it is set, the new element will be used as the trigger | String            | `undefined` |
 
-```
+```ts
 interface IHeadBobbing {
-    active: boolean // default true
-    speed: number // default 5
-    amplitude: number // default 0.25
+  active: boolean // default true
+  speed: number // default 5
+  amplitude: number // default 0.25
 }
 ```
 
-### Add weapons (models)
+## Add weapons (models)
 
 Do you want to add a weapon? Like a pistol, that is always with your character? It couldn't be easier:
 
 Just add your desired model as a slot (learn how to load models here). For example:
 
-```
+```html
 ...
-    <fpsControls>
-      <Suspense>
-        <GLTFModel
-          path="/PixelArt Medieval Sword.glb"
-          :scale="0.4"
-          :position="[-4.5, -3, -5]" // Don't forget set the z axis
-          :rotation="[0, 1, 0]"
-        />
-      </Suspense>
-    </fpsControls>
+<fpsControls>
+  <Suspense>
+    <GLTFModel path="/PixelArt Medieval Sword.glb" :scale="0.4"
+    :position="[-4.5, -3, -5]" // Don't forget set the z axis :rotation="[0, 1,
+    0]" />
+  </Suspense>
+</fpsControls>
 ...
 ```
 
 This will make your model update its position each time you move.
 
-:::warning
-Normally you would set up the z axis, so the model is in front of you camera.
-:::
+> [!IMPORTANT]
+> Normally you would set up the z axis, so the model is in front of you camera.
 
 ### Expose methods
 
 Do you still need more configurations?
 
-We provide all the methods for you, exposed by the component, so you can use them as you like.
+We provide all the methods for you, **exposed** by the component, so you can use them as you like.
 
-```
+```js
   root: PointerLockControlsRef,
   models: wrapperRef,
   moveMethods: {
@@ -204,19 +200,41 @@ You can access all these methods using [Template ref](https://vuejs.org/guide/es
 
 ### Events
 
-We also provide some reactive events.
+We also provide some reactive events. Ej:
 
-const emit = defineEmits(['state', 'isLock', 'change'])
+```html
+<script>
+import { fpsControls } from 'fpsControls'
 
-| Event      | Description                                                |
-| :--------- | :--------------------------------------------------------- |
-| **state**  | trigger when the state changes.                            |
-| **isLock** | trigger whether the pointer is locked.                            |
+const handleState = (e) => console.log(e)
+const handleLock = (e) => console.log(e)
+const onChange = (e) => console.log(e)
+</script>
+
+<template>
+  <TresCanvas window-size>
+    <TresPerspectiveCamera
+      :position="[0, 0, 3]"
+      :fov="45"
+      :aspect="1"
+      :near="0.1"
+      :far="1000"
+    />
+    <fpsControls @state="handleState" @isLock="handleLock" @change="onChange"  />
+
+  </TresCanvas>
+</template>
+```
+
+| Event      | Description                                                 |
+| :--------- | :---------------------------------------------------------- |
+| **state**  | trigger when the state changes.                             |
+| **isLock** | trigger whether the pointer is locked.                      |
 | **change** | trigger when the character makes a move (moves the camera). |
 
 Posible states:
 
-```
+```js
   idle: 'idle',
   walking: 'walking',
   running: 'running',
@@ -228,18 +246,19 @@ Posible states:
 
 You can use the `MobileJoystick` that creates a joystick on your screen to easily move using your fingers on mobile devices (currently this only works on touch devices).
 
-```
+```html
 <script setup>
-import { fpsControls, MobileJoystick } from 'fpsControls'
-...
+  import { fpsControls, MobileJoystick } from 'fpsControls'
+  ...
 </script>
 
 <template>
-...
-    <fpsControls>
-      <MobileJoystick /> // Important, this component need to go inside the `fpsControls`
-    </fpsControls>
-...
+  ...
+  <fpsControls>
+    <MobileJoystick /> // Important, this component need to go inside the
+    `fpsControls`
+  </fpsControls>
+  ...
 </template>
 ```
 

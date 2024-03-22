@@ -34,8 +34,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'fpsControls',
-      fileName: 'fpsControls',
+      name: 'tresfpscontrols',
+      fileName: 'tresfpscontrols',
     },
     copyPublicDir: false,
     watch: {
