@@ -9,7 +9,7 @@
 ## Installation
 
 ```bash
-pnpm i fpsControls
+pnpm i @jaimebboyjt/tres-fps-controls
 ```
 
 ## Demos
