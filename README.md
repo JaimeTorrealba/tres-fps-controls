@@ -1,4 +1,4 @@
-# FPS controls
+# Tres FPS controls
 
 > First person shooter controls to easily create 3D shooter experiences (or other first person experiences).
 
@@ -14,7 +14,7 @@ pnpm i fpsControls
 
 ## Demos
 
-![Alt text](/Fake_Doom_demo.gif "a title")
+![Alt text](/public/Fake_Doom_demo.gif)
 
 All the examples can be found in: [Examples](https://github.com/JaimeTorrealba/fps-controls/tree/main/playground/src/pages).
 

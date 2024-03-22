@@ -1,5 +1,5 @@
 {
-  "name": "tres-fps-controls",
+  "name": "@jaimebboyjt/tres-fps-controls",
   "type": "module",
   "version": "0.0.3",
   "packageManager": "pnpm@8.10.2",
