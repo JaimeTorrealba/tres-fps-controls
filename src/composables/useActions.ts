@@ -1,21 +1,23 @@
 import { useTresContext } from '@tresjs/core'
 import { onKeyDown, useEventListener } from '@vueuse/core'
+import type { IActionKey, IControlsKeys } from '../core/types'
 
-export const useActions = (keys) => {
+export const useActions = (keys: IControlsKeys) => {
 
   const { renderer } = useTresContext()
   const { wheelActionUp, wheelActionDown, actions, leftClick, rightClick, middleClick } = keys
 
-  actions.actions.map((action) => {
+  // eslint-disable-next-line array-callback-return
+  actions.actions.map((action: IActionKey) => {
     onKeyDown(action.key, () => {
       action.action()
     })
   })
 
   useEventListener(renderer.value.domElement, 'click', (evt) => {
-    if (evt.button === 0) leftClick ? leftClick.action() : console.log('no leftClick defined')
-    else if (evt.button === 1) middleClick ? middleClick.action() : console.log('no middleClick defined')
-    else if (evt.button === 2) rightClick ? rightClick?.action() : console.log('no rightClick defined')
+    if (evt.button === 0) leftClick?.action()
+    else if (evt.button === 1) middleClick?.action()
+    else if (evt.button === 2) rightClick?.action()
   })
 
   renderer.value.domElement.onwheel = (event) => {

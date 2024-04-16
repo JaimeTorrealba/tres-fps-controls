@@ -62,7 +62,7 @@ We can provide a `controlsKeys` prop to change, add or remove some of the basic 
 
       // Optionals
 
-      { name: 'jump', key: 'space' },
+      { name: 'jump', key: 'space', gravity },
       { name: 'run', key: 'Shift', speed: moveSpeed * 2 }, // run affect speeds up the headbobbing
       { name: 'creep', key: 'ctrl', speed: moveSpeed * 0.25 }, // creep affect slows down the headbobbing
 
@@ -100,7 +100,7 @@ As you can see we can provide different actions, including an array of actions u
   import { fpsControls } from "fpsControls";
 
   const keyboardMap = [
-    { name: "jump", key: "Space" },
+    { name: "jump", key: "Space", gravity: 9.7 },
     { name: "run", key: "q", speed: 0.5 },
     { name: "creep", key: "e" },
     { name: "leftClick", action: () => animationSword() },

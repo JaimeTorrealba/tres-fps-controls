@@ -1,7 +1,8 @@
 import { ref, watch, watchEffect, reactive } from 'vue'
 import { useMagicKeys } from '@vueuse/core'
+import type { INormalKey } from '../core/types'
 
-export const useWalk = (speed: number, keys) => {
+export const useWalk = (speed: number, keys: INormalKey) => {
   const sidewardMove = ref(0)
   const forwardMove = ref(0)
   const isWalking = ref(false)

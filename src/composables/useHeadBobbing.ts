@@ -1,11 +1,13 @@
+import type { Ref } from 'vue'
 import { ref } from 'vue'
+import type { IHeadBobbing, IStates } from '../core/types'
 import { STATES } from './utils'
 
-export const useHeadBobbing = (headBobbingOptions, initCameraPos) => {
+export const useHeadBobbing = (headBobbingOptions: Ref<IHeadBobbing>, initCameraPos: number) => {
   const { active, speed, amplitude } = headBobbingOptions.value
   const HB = ref(initCameraPos)
 
-  const _speed = (state) => {
+  const _speed = (state: IStates) => {
     if (state === STATES.running) {
       return speed * 3
     }
@@ -14,13 +16,13 @@ export const useHeadBobbing = (headBobbingOptions, initCameraPos) => {
     }
     return speed
   }
-  const _amplitude = (state) => {
+  const _amplitude = (state: IStates) => {
     if (state === STATES.creeping) {
       return amplitude * 0.25
     }
     return amplitude
   }
-  const headBobbingMov = (elapsedTime, isWalking, state) => {
+  const headBobbingMov = (elapsedTime: number, isWalking: boolean, state: IStates) => {
     if (isWalking && active) {
       HB.value = Math.sin(elapsedTime * _speed(state)) * _amplitude(state)
     }

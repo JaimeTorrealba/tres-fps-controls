@@ -1,7 +1,8 @@
 import { ref, watch } from 'vue'
 import { useMagicKeys } from '@vueuse/core'
+import type { IJumpKey } from '../core/types'
 
-export const useJump = (jumpKey, initCameraPos = 0) => {
+export const useJump = (jumpKey: IJumpKey, initCameraPos = 0) => {
   const isJumping = ref(false)
   const jumpDistance = ref(0)
   const initJumpTime = ref(0)
@@ -17,8 +18,8 @@ export const useJump = (jumpKey, initCameraPos = 0) => {
     }
   })
 
-  const getJumpTime = () => ((Date.now() - initJumpTime.value) / 1000) * 3
-  const getJumpDistance = jumpTime => initCameraPos + 6 * jumpTime - 0.5 * gravity * jumpTime ** 2
+  const getJumpTime = (): number => ((Date.now() - initJumpTime.value) / 1000) * 3
+  const getJumpDistance = (jumpTime: number) => initCameraPos + 6 * jumpTime - 0.5 * gravity * jumpTime ** 2
 
   const getJump = () => {
     if (isJumping.value) {
