@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Ref } from 'vue'
 import { ref, shallowRef, toRefs, watchEffect, provide } from 'vue'
-import { useRenderLoop, useTresContext } from '@tresjs/core'
+import { useLoop, useTresContext } from '@tresjs/core'
 import { Vector3 } from 'three'
 
 // COMPONENTS
@@ -120,9 +120,9 @@ defineExpose({
   },
 })
 
-const { onLoop } = useRenderLoop()
+const { onBeforeRender } = useLoop()
 
-onLoop(({ elapsed }: { elapsed: number }) => {
+onBeforeRender(({ elapsed }: { elapsed: number }) => {
   if (isLocked.value || isMobile) {
     PointerLockControlsRef.value.value.moveForward(walkSystem.forwardMove.value)
     PointerLockControlsRef.value.value.moveRight(walkSystem.sidewardMove.value)
