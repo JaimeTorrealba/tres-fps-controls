@@ -3,6 +3,8 @@
   "type": "module",
   "version": "0.0.53",
   "packageManager": "pnpm@8.10.2",
+  "description": "Easy to use First Person Controls for TresJS",
+  "author": "Jaime Torrealba <jaime@torrealba.uk> (https://github.com/JaimeTorrealba)",
   "license": "MIT",
   "keywords": [
     "vue",
@@ -22,7 +24,7 @@
       "import": "./dist/tresfpscontrols.js"
     },
     "./core": {
-      "types": "./dist/core/index.d.ts"
+      "types": "./dist/core/types.d.ts"
     },
     "./*": "./*"
   },
@@ -54,8 +56,8 @@
     "vue": "^3.4.29"
   },
   "devDependencies": {
-    "@tresjs/cientos": "^3.9.0",
     "@release-it/conventional-changelog": "^8.0.1",
+    "@tresjs/cientos": "^3.9.0",
     "@tresjs/eslint-config-vue": "^0.2.1",
     "@types/node": "^20.14.5",
     "@types/three": "^0.158.3",

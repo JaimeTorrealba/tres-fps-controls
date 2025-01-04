@@ -25,7 +25,7 @@ To get started you can simply import the main component and use it.
 ```html
 <script setup>
   import { TresCanvas } from "@tresjs/core";
-  import { fpsControls } from "fpsControls";
+  import { fpsControls } from "@jaimebboyjt/tres-fps-controls";
 </script>
 
 <template>
@@ -52,41 +52,45 @@ That's it. Now you're going to have a shooter controller. The WASD keys allow yo
 We can provide a `controlsKeys` prop to change, add or remove some of the basic functionalities.
 
 ```js
-  controlsKeys: {
-    type: Array,
-    default: () => [
-      { name: 'forward', key: 'w' },
-      { name: 'backward', key: 's' },
-      { name: 'left', key: 'a' },
-      { name: 'right', key: 'd' },
-
-      // Optionals
-
-      { name: 'jump', key: 'space', gravity },
-      { name: 'run', key: 'Shift', speed: moveSpeed * 2 }, // run affect speeds up the headbobbing
-      { name: 'creep', key: 'ctrl', speed: moveSpeed * 0.25 }, // creep affect slows down the headbobbing
-
-      // Mouse actions
-
-      { name: 'leftClick', action: () => { } },
-      { name: 'rightClick', action: () => { } },
-      { name: 'middleClick', action: () => { } },
-      { name: 'wheelActionUp', action: () => { } },
-      { name: 'wheelActionDown', action: () => { } },
-
-      // Key actions
-
-      {
-        name: 'actions', actions: // You can have as many events as you want 🥳
-                    [
-                      { name: 'action', key: 'e', action: () => {} },
-                      { name: 'action', key: 'q', action: () => {} },
-                      { name: 'action', key: 'r', action: () => {} },
-                      { name: 'action', key: 'f', action: () => {} },
-                    ],
-      },
-    ],
-  },
+export default {
+  props: {
+    controlsKeys: {
+      type: Array,
+      default: () => [
+        { name: 'forward', key: 'w' },
+        { name: 'backward', key: 's' },
+        { name: 'left', key: 'a' },
+        { name: 'right', key: 'd' },
+  
+        // Optionals
+  
+        { name: 'jump', key: 'space', gravity },
+        { name: 'run', key: 'Shift', speed: moveSpeed * 2 }, // run affect speeds up the headbobbing
+        { name: 'creep', key: 'ctrl', speed: moveSpeed * 0.25 }, // creep affect slows down the headbobbing
+  
+        // Mouse actions
+  
+        { name: 'leftClick', action: () => { } },
+        { name: 'rightClick', action: () => { } },
+        { name: 'middleClick', action: () => { } },
+        { name: 'wheelActionUp', action: () => { } },
+        { name: 'wheelActionDown', action: () => { } },
+  
+        // Key actions
+  
+        {
+          name: 'actions', actions: // You can have as many events as you want 🥳
+                        [
+                          { name: 'action', key: 'e', action: () => {} },
+                          { name: 'action', key: 'q', action: () => {} },
+                          { name: 'action', key: 'r', action: () => {} },
+                          { name: 'action', key: 'f', action: () => {} },
+                        ],
+        },
+      ],
+    },
+  }
+}
 ```
 
 > [!TIP]
@@ -97,7 +101,7 @@ As you can see we can provide different actions, including an array of actions u
 ```html
 <script setup>
   import { TresCanvas } from "@tresjs/core";
-  import { fpsControls } from "fpsControls";
+  import { fpsControls } from "@jaimebboyjt/tres-fps-controls";
 
   const keyboardMap = [
     { name: "jump", key: "Space", gravity: 9.7 },
@@ -178,6 +182,7 @@ Do you still need more configurations?
 We provide all the methods for you, **exposed** by the component, so you can use them as you like.
 
 ```js
+const exposeMethods = {
   root: PointerLockControlsRef,
   models: wrapperRef,
   moveMethods: {
@@ -192,6 +197,7 @@ We provide all the methods for you, **exposed** by the component, so you can use
     stopSideward: () => walkSystem.stopSideward(),
     stopForward: () => walkSystem.stopForward(),
   }
+}
 ```
 
 For granular control each method comes with its `stop` method.
@@ -235,11 +241,13 @@ const onChange = (e) => console.log(e)
 Posible states:
 
 ```js
+const states = {
   idle: 'idle',
   walking: 'walking',
   running: 'running',
   jumping: 'jumping',
   creeping: 'creeping',
+}
 ```
 
 ## Mobile (in progress)
