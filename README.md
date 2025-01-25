@@ -250,7 +250,7 @@ const states = {
 }
 ```
 
-## Mobile (in progress)
+## Mobile
 
 You can use the `MobileJoystick` that creates a joystick on your screen to easily move using your fingers on mobile devices (currently this only works on touch devices).
 
@@ -269,6 +269,10 @@ You can use the `MobileJoystick` that creates a joystick on your screen to easil
   ...
 </template>
 ```
+
+## Gamepad
+
+[Check example](/playground/src/pages/basics/GamepadDemo.vue) inside playground on how to use the a gamepad with this repo :D
 
 ### Props
 

@@ -7,6 +7,9 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    GamePad: typeof import('./src/components/GamePad.vue')['default']
+    GamePadComponent: typeof import('./src/components/GamePadComponent.vue')['default']
+    GamePadSvg: typeof import('./src/components/GamePadSvg.vue')['default']
     HangarSky: typeof import('./src/components/HangarSky.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

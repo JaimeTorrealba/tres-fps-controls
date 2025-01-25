@@ -15,18 +15,11 @@ const sections = [
       <div
         class="mt-24 mb-12 text-center align-baseline items-center gap-6 sm:mt-16 sm:mb-6 sm:text-left sm:flex sm:flex-row-reverse"
       >
-        <div>
-          <!-- <img
-            src="/logo.svg"
-            alt="Rapier logo"
-            class="max-w-36 sm:max-w-xs align-baseline"
-          > -->
-        </div>
         <div class="sm:w-2/3">
           <h1
             class="w-auto max-w-75 mx-auto text-5xl text-zinc-700 mb-3 sm:mx-none sm:w-1/2 sm:max-w-72"
           >
-            <span class="text-cientos-blue">FPS-Controls 🗡️</span>Playground
+            <span class="text-cientos-blue">FPS-Controls 🔫</span>Playground
           </h1>
           <p class="text-lg">
             Demos for the <strong>fps-controls</strong> library.

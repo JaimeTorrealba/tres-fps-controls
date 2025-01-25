@@ -46,14 +46,9 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.vue"
   },
   "peerDependencies": {
-    "@tresjs/core": ">=3.5.0",
-    "three": ">=0.158.0",
+    "@tresjs/core": ">=4.2.1",
+    "three": ">=0.172.0",
     "vue": ">=3.3.8"
-  },
-  "dependencies": {
-    "@tresjs/core": "^4.0.2",
-    "three": "^0.158.0",
-    "vue": "^3.4.29"
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "^8.0.1",
