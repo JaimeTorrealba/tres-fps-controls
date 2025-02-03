@@ -72,7 +72,7 @@ for (let i = 0; i < 150; i++) {
         <GLTFModel
           path="/PixelArt Medieval Sword.glb"
           :scale="0.4"
-          :position="[-4.5, -3, -5]"
+          :position="[-1, -1, 0]"
           :rotation="[0, 1, 0]"
         />
       </Suspense>

@@ -7,6 +7,7 @@ import { fpsControls } from 'fpsControls'
 const shooter = shallowRef(false)
 
 watch(shooter, (value) => {
+  // eslint-disable-next-line no-console
   console.log('jaime ~ watch ~ value:', value)
 })
 </script>

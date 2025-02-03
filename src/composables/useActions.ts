@@ -15,9 +15,9 @@ export const useActions = (keys: IControlsKeys) => {
   })
 
   useEventListener(renderer.value.domElement, 'click', (evt) => {
-    if (evt.button === 0) leftClick?.action()
-    else if (evt.button === 1) middleClick?.action()
-    else if (evt.button === 2) rightClick?.action()
+    if (evt.button === 0 && leftClick) leftClick?.action()
+    else if (evt.button === 1 && middleClick) middleClick?.action()
+    else if (evt.button === 2 && rightClick) rightClick?.action()
   })
 
   renderer.value.domElement.onwheel = (event) => {

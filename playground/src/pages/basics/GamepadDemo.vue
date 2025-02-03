@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script setup>
 import { shallowRef, computed, watch } from 'vue'
 import { TresCanvas } from '@tresjs/core'
@@ -9,6 +10,7 @@ import GamePadComponent from '../../components/GamePadComponent.vue'
 const { isSupported, gamepads, onConnected } = useGamepad()
 const gamepad = computed(() => gamepads.value.find(g => g.mapping === 'standard'))
 const controller = mapGamepadToXbox360Controller(gamepad)
+const cameraRef = shallowRef(null)
 
 const zAxis = computed(() => {
   if (controller.value) {
@@ -49,7 +51,50 @@ const xAxis = computed(() => {
   return false
 })
 
-watch([zAxis, xAxis], () => {
+const buttons = computed(() => {
+  if (controller.value) {
+    if (controller.value.buttons.b.pressed) {
+      shooter.value.moveMethods.run()
+    }
+    else if (controller.value.buttons.x.pressed) {
+      shooter.value.moveMethods.creep()
+    }
+    else if (controller.value.buttons.y.pressed) {
+      console.log('Jump!')
+    }
+    else if (controller.value.buttons.a.pressed) {
+      console.log('Shoot!')
+    }
+  }
+  return false
+})
+
+let x = 0
+let y = 0
+//move camera
+const moveCamera = computed(() => {
+  if (controller.value) {
+    if (controller.value.stick.right.vertical < -0.5) {
+      y += 0.05
+      cameraRef.value.lookAt(x, y, 0)
+    }
+    else if (controller.value.stick.right.vertical > 0.5) {
+      y -= 0.05
+      cameraRef.value.lookAt(x, y, 0)
+    }
+    else if (controller.value.stick.right.horizontal < -0.5) {
+      x -= 0.05
+      cameraRef.value.lookAt(x, y, 0)
+    }
+    else if (controller.value.stick.right.horizontal > 0.5) {
+      x += 0.05
+      cameraRef.value.lookAt(x, y, 0)
+    }
+  }
+  return false
+})
+
+watch([zAxis, xAxis, buttons, moveCamera], () => {
   console.log('Gamepad')
 })
 
@@ -58,19 +103,13 @@ const shooter = shallowRef(false)
 watch(shooter, (value) => {
   console.log('jaime ~ watch ~ value:', value)
 })
-
-// function animate() {
-//   console.log('jaime ~ controller:', controller.value)
-//   requestAnimationFrame(animate)
-
-// }
-// animate()
 </script>
 
 <template>
   <GamePadComponent class="control" />
   <TresCanvas window-size>
     <TresPerspectiveCamera
+      ref="cameraRef"
       :position="[0, 0, 3]"
       :fov="45"
       :aspect="1"
@@ -100,7 +139,7 @@ watch(shooter, (value) => {
 </template>
 
 <style scoped>
-.control{
+.control {
   position: absolute;
   top: 0;
   left: 0;

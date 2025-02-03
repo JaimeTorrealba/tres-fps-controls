@@ -63,10 +63,9 @@ export default {
         { name: 'right', key: 'd' },
   
         // Optionals
-  
-        { name: 'jump', key: 'space', gravity },
-        { name: 'run', key: 'Shift', speed: moveSpeed * 2 }, // run affect speeds up the headbobbing
-        { name: 'creep', key: 'ctrl', speed: moveSpeed * 0.25 }, // creep affect slows down the headbobbing
+
+        { name: 'run', key: 'Shift', speed: moveSpeed * 2 },
+        { name: 'creep', key: 'ctrl', speed: moveSpeed * 0.25 },
   
         // Mouse actions
   
@@ -104,7 +103,6 @@ As you can see we can provide different actions, including an array of actions u
   import { fpsControls } from "@jaimebboyjt/tres-fps-controls";
 
   const keyboardMap = [
-    { name: "jump", key: "Space", gravity: 9.7 },
     { name: "run", key: "q", speed: 0.5 },
     { name: "creep", key: "e" },
     { name: "leftClick", action: () => animationSword() },
@@ -139,18 +137,10 @@ As you can see we can provide different actions, including an array of actions u
 | Prop            | Description                                                                               | Type              | Default     |
 | :-------------- | :---------------------------------------------------------------------------------------- | ----------------- | ----------- |
 | **moveSpeed**   | Move speed                                                                                | Number            | `0.1`       |
-| **headBobbing** | headBobbing parameters (active, speed, amplitude)                                         | IHeadBobbing      |             |
 | **camera**      | The camera to control                                                                     | Camera            | `undefined` |
 | **domElement**  | The dom element to listen to                                                              | HTMLCanvasElement | `undefined` |
 | **selector**    | Accept an id element as string, if it is set, the new element will be used as the trigger | String            | `undefined` |
 
-```ts
-interface IHeadBobbing {
-  active: boolean // default true
-  speed: number // default 5
-  amplitude: number // default 0.25
-}
-```
 
 ## Add weapons (models)
 
@@ -245,7 +235,6 @@ const states = {
   idle: 'idle',
   walking: 'walking',
   running: 'running',
-  jumping: 'jumping',
   creeping: 'creeping',
 }
 ```
