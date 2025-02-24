@@ -2,10 +2,14 @@
 import { shallowRef } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { Sky, Stats } from '@tresjs/cientos'
-import { fpsControls, MobileJoystick } from 'fpsControls'
+import { fpsControls } from 'fpsControls'
+import MobileJoystick from '../../components/MobileJoystick.vue'
+
+const joystickMode = 'origin'
 </script>
 
 <template>
+  <MobileJoystick :mode="joystickMode" />
   <TresCanvas window-size>
     <TresPerspectiveCamera
       :position="[0, 0, 3]"
@@ -15,9 +19,7 @@ import { fpsControls, MobileJoystick } from 'fpsControls'
       :far="1000"
     />
     <Stats />
-    <fpsControls>
-      <MobileJoystick />
-    </fpsControls>
+    <fpsControls />
     <TresMesh>
       <TresBoxGeometry :args="[1, 1, 1]" />
       <TresMeshBasicMaterial

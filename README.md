@@ -239,37 +239,9 @@ const states = {
 }
 ```
 
-## Mobile
-
-You can use the `MobileJoystick` that creates a joystick on your screen to easily move using your fingers on mobile devices (currently this only works on touch devices).
-
-```html
-<script setup>
-  import { fpsControls, MobileJoystick } from 'fpsControls'
-  ...
-</script>
-
-<template>
-  ...
-  <fpsControls>
-    <MobileJoystick /> // Important, this component need to go inside the
-    `fpsControls`
-  </fpsControls>
-  ...
-</template>
-```
-
 ## Gamepad
 
-[Check example](/playground/src/pages/basics/GamepadDemo.vue) inside playground on how to use the a gamepad with this repo :D
-
-### Props
-
-| Prop                | Description                      | Type   | Default                                                                                                                                                                                           |
-| :------------------ | :------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **containerStyles** | Styles of the joystick container | String | `position:absolute; bottom:35px; width:160px; height:160px; background:rgba(126, 126, 126, 0.5); border:#fff solid medium; border-radius:50%; left:20%; transform:translateX(-50%);z-index:9999;` |
-| **joystickStyles**  | Joystick styles                  | String | `position: absolute; left: 50px; top: 50px; width: 60px; height: 60px; border-radius: 50%; background: #fff;`                                                                                     |
-| **maxRadius**       | Max length of the joystick       | Number | `40`                                                                                                                                                                                              |
+[Check example](/playground/src/pages/basics/GamepadDemo.vue) inside playground on how to use the a gamepad with this repo :D                                                                          |
 
 ## Contributing
 

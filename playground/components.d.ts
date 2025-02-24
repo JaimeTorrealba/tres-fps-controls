@@ -11,6 +11,7 @@ declare module 'vue' {
     GamePadComponent: typeof import('./src/components/GamePadComponent.vue')['default']
     GamePadSvg: typeof import('./src/components/GamePadSvg.vue')['default']
     HangarSky: typeof import('./src/components/HangarSky.vue')['default']
+    Mobilejoystick: typeof import('./src/components/Mobilejoystick.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
